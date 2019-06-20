@@ -1,0 +1,637 @@
+try {
+    __adroll.load_adroll_tpc(__adroll.render_advertisable_cell);
+}
+catch(e) {}
+
+try {
+        function __adroll__(){this.exp=8760;this.eexp=720;this.pv=1E11*Math.random();this.__adc="__ar_v4";this._loaded=this._broken=!1;this._url=2E3;this._kwl=300;this._r={};this._logs=[];this.cm_urls=[];this.consent_networks={facebook:"f",linkedin:"linkedin"};for(var a=Array(4),c=0;c<a.length;c++)a[c]=(Math.round(1E11*Math.random()).toString(16)+Array(9).join("0")).substr(0,8);this._set_global("adroll_sid",a.join(""))};__adroll__.prototype.load_consent_banner=function(){this.add_script_element("s.adroll.com/j/consent.js")};__adroll__.prototype.get_consent_params=function(){return this.get("__adroll_consent_params")};__adroll__.prototype.set_consent_params=function(a){this.set("__adroll_consent_params",a)};__adroll__.prototype.clear_consent_params=function(){this.del("__adroll_consent_params")};__adroll__.prototype.handle_null_consent=function(a){a||((a=this.get_consent_params())?this.call_consent_write(a):this.load_consent_banner())};
+__adroll__.prototype.show_post_consent_message=function(a){var c=this.get("__adroll_post_consent_html"),b=this.get("__adroll_post_consent_css");if(c&&"boolean"!==typeof a){a=window.document.createElement("style");a.setAttribute("type","text/css");a.textContent=b;window.document.head.appendChild(a);b=document.createElement("div");b.innerHTML=c;window.document.body.appendChild(b.firstChild);var d=window.document.getElementById("adroll_consent_banner");setTimeout(function(){try{d.classList.add("hidden")}catch(a){d.className+=
+" hidden"}},1E3);window.document.getElementById("adroll_post_consent_message_close").addEventListener("click",function(){d.parentNode.removeChild(d)});window.document.getElementById("adroll_post_consent_text").addEventListener("click",function(){window.open("http://d.adroll.com/consent/choices","_blank")});this.del("__adroll_post_consent_css");this.del("__adroll_post_consent_html")}};
+__adroll__.prototype.set_consent=function(a,c,b){this.show_post_consent_message(a);if(0===arguments.length){if(!this._has_global("__adroll_consent"))return;a=this._global("__adroll_consent")}this._set_global("__adroll_consent",a);this._set_global("__adroll_consent_is_gdpr",b);null===a?this.handle_null_consent(c):(c||this.clear_consent_params(),!1!==a&&(this.set_first_party_cookie(),this.call_next_tpc()))};__adroll__.prototype.cookieEnabled=function(){if(this._broken)return!1;this.set("_te_","1");return"1"===this.get("_te_")?(this.del("_te_"),!0):!1};__adroll__.prototype.get=function(a){var c=window.document.cookie;if(null===c)return this._broken=!0,null;var b;0>c.indexOf(a+"=")?c=null:(a=c.indexOf(a+"=")+a.length+1,b=c.indexOf(";",a),-1===b&&(b=c.length),c=c.substring(a,b),c=""===c?null:window.unescape(c));return c};
+__adroll__.prototype.set=function(a,c,b){var d;b&&"number"===typeof b?(d=new Date,d.setTime(d.getTime()+36E5*b),b=d.toGMTString(),b="; expires="+b):b="";d="; domain="+window.location.hostname;c=window.escape(c);window.document.cookie=a+"="+c+b+"; path=/"+d+"; samesite=lax"};__adroll__.prototype.del=function(a){this.set(a,"",-8760)};
+__adroll__.prototype.check_cookie=function(a,c){for(var b=a.split("|"),d=b.length-1;0<=d;d--)if(b[d]){var f=b[d].split(":");c===f[0]&&(f[2]=""+(parseInt(f[2])+1),b[d]=f.join(":"))}return b.join("|")};__adroll__.prototype.handle=function(a){var c=this.get(this.__adc)||"";-1!==c.indexOf(a)?this.set(this.__adc,this.check_cookie(c,a),this.exp):(a=[c,[a,this.get_date(this.eexp),"1"].join(":")].join("|"),this.set(this.__adc,a,this.exp))};
+__adroll__.prototype.expire_old=function(){for(var a=this.get_date(!1),c=this.get(this.__adc),c=c?c.split("|"):[""],b=[],d=c.length-1;0<=d;d--)c[d]&&""!==c[d]&&c[d].split(":")[1]>a&&b.push(c[d]);this.set(this.__adc,b.join("|"),this.exp)};__adroll__.prototype.get_date=function(a){var c=new Date;a&&c.setTime(c.getTime()+36E5*a);a=""+c.getUTCFullYear();var b=c.getUTCMonth(),b=10<=b?b:"0"+b,c=c.getUTCDate();return[a,b,10<=c?c:"0"+c].join("")};
+__adroll__.prototype.set_pixel_cookie=function(a,c){this.handle(a);this.handle(c)};__adroll__.prototype.consent_allowed=function(a){var c=this._global("__adroll_consent");return"object"===typeof c?c[a]:c};__adroll__.prototype.listenToEvent=function(a,c,b){a.addEventListener?a.addEventListener(c,this.wrapException(b),!1):a.attachEvent("on"+c,this.wrapException(b))};__adroll__.prototype._head=function(){return(window.document.getElementsByTagName("head")||[null])[0]||(window.document.getElementsByTagName("body")||[null])[0]||window.document.getElementsByTagName("script")[0].parentNode};__adroll__.prototype.runCookieMatch=function(){var a=this.cm_urls.length;if(!(0>=a))for(var c=0;c<=a;c++)this.popAndSend()};
+__adroll__.prototype.popAndSend=function(){if(!(0>=this.cm_urls.length)){var a=this.cm_urls.shift();(new Image).src=a}};__adroll__.prototype.dyno=function(a,c){if(a){var b=new XMLHttpRequest;b.onreadystatechange=function(){if(b.readyState===b.HEADERS_RECEIVED){var d=this.parseDynoResponseHeader(b.getAllResponseHeaders());this._queueAndCallback("dyno",[a,c,d])}}.bind(this);var d=this.get_segment_url(this._global("adroll_adv_id"),this._global("adroll_pix_id"),c);b.open("GET",d,!0);b.withCredentials=!0;b.send()}};__adroll__.prototype.registerDynoCallback=function(a,c){this._registerCallback("dyno",a,c)};
+__adroll__.prototype.parseDynoResponseHeader=function(a){var c={};if(!a)return c;a=a.split("\r\n");for(var b=0,d=a.length;b<d;b++){var f=a[b],m=f.indexOf(": ");if(0<m){var p=f.substring(0,m);this.startsWith(p.toLowerCase(),"x-")&&(c[p.toLowerCase()]=f.substring(m+2))}}return c};__adroll__.prototype.is_under_experiment=function(){var a=this._global("adroll_adv_id");return 0<=["ADV_EID","3QOM4TKN4RD7TO3HCPYRKV","RR6VELGGEBBKZEEQ2FK34E","VIDRP27DERDLPD5BI427XM"].indexOf(a)};__adroll__.prototype.load_experiment_js=function(){var a=window.document.getElementById("adroll_scr_exp");return a?a:this.add_script_element("https://s.adroll.com/j/exp/"+window.adroll_adv_id+"/index.js",{id:"adroll_scr_exp",onError:"window.adroll_exp_list = [];"})};
+__adroll__.prototype.is_experiment_js_loaded=function(){return!!window.adroll_exp_list};__adroll__.prototype.is_test_advertisable=function(){return"ADV_EID"===this._global("adroll_adv_id")};
+__adroll__.prototype.if_under_experiment_js=function(a,c,b,d){function f(){if(p.is_experiment_js_loaded()||p.is_test_advertisable())m=!0;m?window.adroll_exp_list&&0<=window.adroll_exp_list.indexOf(a)?c.call(p):b.call(p):window.setTimeout(f,10)}var m=!1,p=this;this.load_experiment_js();window.setTimeout(function(){m=!0},d||500);f()};__adroll__.prototype.external_data_to_qs=function(a,c){var b=[];if(!a)return null;for(var d in a)a.hasOwnProperty(d)&&this._is_defined(a[d])&&null!==a[d]&&b.push(this.normalize_var(window.escape(""+d)+"="+window.escape(""+a[d]),!1));b=b.join("&");c&&(b=window.escape(b));return"adroll_external_data="+b};
+__adroll__.prototype.get_page_properties=function(){if(this._has_global("adroll_page_properties")){var a=this._global("adroll_page_properties"),c={},b;for(b in a)a.hasOwnProperty(b)&&"undefined"!==a[b]&&(c[b.toLowerCase()]=a[b]);return c}return null};
+__adroll__.prototype.parse_conversion_attrs=function(a){if(!a)return null;for(var c={},b=["conv_value","conversion_value"],d=["adroll_currency","currency"],f=0;f<b.length;f++)if(a.hasOwnProperty(b[f])){c.conv_value=a[b[f]];break}for(b=0;b<d.length;b++)if(a.hasOwnProperty(d[b])){c.currency=a[d[b]];break}return 1<=Object.keys(c).length?c:null};
+__adroll__.prototype.get_conversion_value=function(a){var c=this._ensure_global("adroll_currency",null),b=this._ensure_global("adroll_conversion_value",null),d=this._ensure_global("adroll_conversion_value_in_dollars",null);return(a=this.parse_conversion_attrs(a))?a:b?{conv_value:""+b,currency:c}:d?{conv_value:""+parseInt(100*d),currency:"USC"}:null};__adroll__.prototype._has_global=function(a){return this._is_defined(this._global(a))};__adroll__.prototype._global=function(a){return window[a]};__adroll__.prototype._set_global=function(a,c){window[a]=c};__adroll__.prototype._unset_global=function(a){delete window[a]};__adroll__.prototype._ensure_global=function(a,c){this._has_global(a)||this._set_global(a,c);return this._global(a)};__adroll__.prototype.jsonStringify=function(a){this.jsonStringifyFunc||this.initJsonStringify();return this.jsonStringifyFunc(a)};__adroll__.prototype.jsonParse=function(a){var c=this._global("JSON");return"function"===typeof c.parse?c.parse(a):eval("("+a+")")};
+__adroll__.prototype.initJsonStringify=function(){var a=this._global("JSON");this.jsonStringifyFunc=a||a.stringify&&"function"===typeof a.stringify?a.stringify:function(){function a(b){return f[b]||"\\u"+(b.charCodeAt(0)+65536).toString(16).substr(1)}var b=Object.prototype.toString,d=Array.isArray||function(a){return"[object Array]"===b.call(a)},f={'"':'\\"',"\\":"\\\\","\b":"\\b","\f":"\\f","\n":"\\n","\r":"\\r","\t":"\\t"},m=/[\\"\u0000-\u001F\u2028\u2029]/g;return function n(l){if(null===l)return"null";
+if("number"===typeof l)return isFinite(l)?l.toString():"null";if("boolean"===typeof l)return l.toString();if("object"===typeof l){if("function"===typeof l.toJSON)return n(l.toJSON());if(d(l)){for(var k="[",g=0;g<l.length;g++)k+=(g?", ":"")+n(l[g]);return k+"]"}if("[object Object]"===b.call(l)){k=[];for(g in l)l.hasOwnProperty(g)&&k.push(n(g)+": "+n(l[g]));return"{"+k.join(", ")+"}"}}return'"'+l.toString().replace(m,a)+'"'}}()};__adroll__.prototype.serialize=function(a){if(a.length){for(var c=[],b=a.length-1;0<=b;b--)c.push(a[b].join("="));return c.join("&")}return""};__adroll__.prototype.endswith=function(a,c){return-1!==a.indexOf(c,a.length-c.length)};__adroll__.prototype.buildurl=function(a,c){var b=this.serialize(c),d=a.indexOf("?");return b?d===a.length-1?a+b:-1!==d?"&"===a[a.length-1]?a+b:a+"&"+b:a+"?"+b:a};__adroll__.prototype.md5=function(){function a(a,b){var c=(a&65535)+(b&65535);return(a>>16)+(b>>16)+(c>>16)<<16|c&65535}function c(b,c,d,g,e,h){c=a(a(c,b),a(g,h));return a(c<<e|c>>>32-e,d)}function b(a,b,d,g,e,h,f){return c(b&d|~b&g,a,b,e,h,f)}function d(a,b,d,g,e,h,f){return c(b&g|d&~g,a,b,e,h,f)}function f(a,b,d,g,e,f,m){return c(d^(b|~g),a,b,e,f,m)}function m(n,l){var k=n[0],g=n[1],e=n[2],h=n[3],k=b(k,g,e,h,l[0],7,-680876936),h=b(h,k,g,e,l[1],12,-389564586),e=b(e,h,k,g,l[2],17,606105819),g=b(g,
+e,h,k,l[3],22,-1044525330),k=b(k,g,e,h,l[4],7,-176418897),h=b(h,k,g,e,l[5],12,1200080426),e=b(e,h,k,g,l[6],17,-1473231341),g=b(g,e,h,k,l[7],22,-45705983),k=b(k,g,e,h,l[8],7,1770035416),h=b(h,k,g,e,l[9],12,-1958414417),e=b(e,h,k,g,l[10],17,-42063),g=b(g,e,h,k,l[11],22,-1990404162),k=b(k,g,e,h,l[12],7,1804603682),h=b(h,k,g,e,l[13],12,-40341101),e=b(e,h,k,g,l[14],17,-1502002290),g=b(g,e,h,k,l[15],22,1236535329),k=d(k,g,e,h,l[1],5,-165796510),h=d(h,k,g,e,l[6],9,-1069501632),e=d(e,h,k,g,l[11],14,643717713),
+g=d(g,e,h,k,l[0],20,-373897302),k=d(k,g,e,h,l[5],5,-701558691),h=d(h,k,g,e,l[10],9,38016083),e=d(e,h,k,g,l[15],14,-660478335),g=d(g,e,h,k,l[4],20,-405537848),k=d(k,g,e,h,l[9],5,568446438),h=d(h,k,g,e,l[14],9,-1019803690),e=d(e,h,k,g,l[3],14,-187363961),g=d(g,e,h,k,l[8],20,1163531501),k=d(k,g,e,h,l[13],5,-1444681467),h=d(h,k,g,e,l[2],9,-51403784),e=d(e,h,k,g,l[7],14,1735328473),g=d(g,e,h,k,l[12],20,-1926607734),k=c(g^e^h,k,g,l[5],4,-378558),h=c(k^g^e,h,k,l[8],11,-2022574463),e=c(h^k^g,e,h,l[11],16,
+1839030562),g=c(e^h^k,g,e,l[14],23,-35309556),k=c(g^e^h,k,g,l[1],4,-1530992060),h=c(k^g^e,h,k,l[4],11,1272893353),e=c(h^k^g,e,h,l[7],16,-155497632),g=c(e^h^k,g,e,l[10],23,-1094730640),k=c(g^e^h,k,g,l[13],4,681279174),h=c(k^g^e,h,k,l[0],11,-358537222),e=c(h^k^g,e,h,l[3],16,-722521979),g=c(e^h^k,g,e,l[6],23,76029189),k=c(g^e^h,k,g,l[9],4,-640364487),h=c(k^g^e,h,k,l[12],11,-421815835),e=c(h^k^g,e,h,l[15],16,530742520),g=c(e^h^k,g,e,l[2],23,-995338651),k=f(k,g,e,h,l[0],6,-198630844),h=f(h,k,g,e,l[7],
+10,1126891415),e=f(e,h,k,g,l[14],15,-1416354905),g=f(g,e,h,k,l[5],21,-57434055),k=f(k,g,e,h,l[12],6,1700485571),h=f(h,k,g,e,l[3],10,-1894986606),e=f(e,h,k,g,l[10],15,-1051523),g=f(g,e,h,k,l[1],21,-2054922799),k=f(k,g,e,h,l[8],6,1873313359),h=f(h,k,g,e,l[15],10,-30611744),e=f(e,h,k,g,l[6],15,-1560198380),g=f(g,e,h,k,l[13],21,1309151649),k=f(k,g,e,h,l[4],6,-145523070),h=f(h,k,g,e,l[11],10,-1120210379),e=f(e,h,k,g,l[2],15,718787259),g=f(g,e,h,k,l[9],21,-343485551);n[0]=a(k,n[0]);n[1]=a(g,n[1]);n[2]=
+a(e,n[2]);n[3]=a(h,n[3])}var p="0123456789abcdef".split("");return function(a){var b=a;/[\x80-\xFF]/.test(b)&&(b=unescape(encodeURI(b)));var c=b.length;a=[1732584193,-271733879,-1732584194,271733878];var d;for(d=64;d<=b.length;d+=64){for(var e=b.substring(d-64,d),f=[],q=void 0,q=0;64>q;q+=4)f[q>>2]=e.charCodeAt(q)+(e.charCodeAt(q+1)<<8)+(e.charCodeAt(q+2)<<16)+(e.charCodeAt(q+3)<<24);m(a,f)}b=b.substring(d-64);e=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];for(d=0;d<b.length;d++)e[d>>2]|=b.charCodeAt(d)<<(d%
+4<<3);e[d>>2]|=128<<(d%4<<3);if(55<d)for(m(a,e),d=0;16>d;d++)e[d]=0;e[14]=8*c;m(a,e);for(b=0;b<a.length;b++){c=a;d=b;e=a[b];f="";for(q=0;4>q;q++)f+=p[e>>8*q+4&15]+p[e>>8*q&15];c[d]=f}return a.join("")}}();__adroll__.prototype._gurl=function(){var a=window.location;return this.normalize_url(a.pathname+a.search)};__adroll__.prototype.get_dummy_product_for_facebook=function(a){return{product_id:"adroll_dummy_product",product_group:a,product_action:null,product_category:null}};__adroll__.prototype.facebook_dummy_product_enabled=function(){return!0};
+__adroll__.prototype.extract_pid=function(a,c,b,d,f){a||(a={});var m=null,p=this._gurl(),m=null;if("2.0"!==this.get_version())return null;m="productView"===c?"":c;c=null;b&&(c=b.products);c&&0!==c.length||(c=this.extract_product_from_rollcrawl_opts(a,p));a=[];if(c)for(b=0;b<c.length;b++)p=c[b].product_id,null!==p&&""!==p&&"undefined"!==p&&a.push(c[b]);if(a&&0!==a.length)m={product_action:m,product_list:a};else if(this.facebook_dummy_product_enabled()&&"facebook"===d)m=this.get_dummy_product_for_facebook(null);
+else return null;f&&f(m);return m};
+__adroll__.prototype.extract_product_from_rollcrawl_opts=function(a,c){function b(a){return a?(a=new RegExp(a,"gi"),!!a.exec(c)):null}var d=null,f=null,m=null;if(a.regexp_group&&!("string"===a.regexp_group&&a.regexp_group instanceof String)&&"html"===a.regexp_group.scheme){if(b(a.blacklist_regexp)||!0!==b(a.regexp))return"";d=this.get_product_id_from_dom(a.regexp_group)}else if(!d){if(b(a.blacklist_regexp))return"";d=this.get_product_id_from_url(c,a.regexp,a.regexp_group)}f||!a.product_group_group||
+"string"===a.product_group_group&&a.product_group_group instanceof String||"html"!==a.product_group_group.scheme?f||a.product_group_regexp&&(f=this.get_product_id_from_url(c,a.product_group_regexp,a.product_group_group)):f=this.get_product_id_from_dom(a.product_group_group);if(d){var p={},m=[];p.product_id=d;p.product_group=f;m.push(p)}return m};
+__adroll__.prototype.get_pid=function(a){var c=function(b,c){this.is_product_event(b)&&this.extract_pid(a,b,c,"adroll",function(a){if(a){var m=a.product_action,p=a.product_list;if(p&&0!==p.length){a=this.copyObj(c)||{};var n=[];m&&n.push(["adroll_product_action",this.normalize_var((m+"").toLowerCase(),!0)]);p&&(n.push(["adroll_products",window.encodeURIComponent(this.jsonStringify(p))]),a.products||(a.products=p));n.push(["adroll_version",this.get_version()]);(m=this.external_data_to_qs(c,!0))&&n.push([m]);
+m=this._srv(this.buildurl("/p/"+this._global("adroll_adv_id")+"/",n));n=window.document.createElement("img");n.src=m;n.height=n.width=1;n.border=0;this._head().appendChild(n);this._callUserEventEndpoint(b,a)}}}.bind(this))}.bind(this);this.registerTrackCallback(c,"productEventCallback")};
+__adroll__.prototype.get_product_id_from_dom=function(a){var c=null,b;a.path&&(window.jQuery?(b=window.jQuery(a.path),b.length&&(b=b.eq(0),c="text"===a.attribute?b.text():b.attr(a.attribute))):window.Prototype&&window.$$?(b=window.$$(a.path),b.length&&(b=b[0],c="text"===a.attribute?b.innerText&&!window.opera?b.innerText:b.innerHTML.stripScripts().unescapeHTML().replace(/[\n\r\s]+/g," "):b.readAttribute(a.attribute))):window.YUI?(b=window.YUI().use("node"),b.one&&(b=b.one(a.path),c=null,b&&(c="text"===
+a.attribute?b.get("text"):b.getAttribute(a.attribute)))):window.$$&&(b=window.$$(a.path),b.length&&(b=b[0],c="text"===a.attribute?b.get("text"):b.getProperty(a.attribute))));if(c&&(c=c.replace(/^\s\s*/,"").replace(/\s\s*$/,""),a.regular_expression&&a.regular_expression_replace))if(b=new RegExp(a.regular_expression,"gi"),c=b.exec(c),null!==c){a=a.regular_expression_replace;for(b=0;b<c.length;b++)a=a.replace(new RegExp("\\\\"+b,"gi"),c[b]||"");c=a}else c="";return c};
+__adroll__.prototype.get_product_id_from_url=function(a,c,b){var d=null;try{d=parseInt(b)}catch(f){}return null!==d&&!isNaN(d)&&c&&(a=(new RegExp(c,"gi")).exec(a),null!==a&&d in a)?a[d]:null};__adroll__.prototype.get_segment_url=function(a,c,b){this.expire_old();var d=this.get_keywords(),f=[];try{f.push("adroll_s_ref="+window.escape(window.document.referrer))}catch(h){}try{f.push("keyw="+window.escape(d))}catch(h){}try{var m=b.segment_name;this.is_null_or_blank(m)||f.push("name="+window.escape(m.toLowerCase()))}catch(h){}try{var p=this.get_conversion_value(b);p.conv_value&&f.push("conv_value="+p.conv_value);p.currency&&f.push("adroll_currency="+p.currency)}catch(h){}try{var n=b.adroll_email;
+if(!this.is_null_or_blank(n)){var n=n.replace(/^\s+|\s+$/g,""),l=n.toLowerCase();this.is_already_hashed(l)?f.push("hashed_email="+l):this.is_email_valid(n)?f.push("hashed_email="+this.md5(l)):(f.push("data_error=email"),f.push("data_error_message=invalid_format"))}}catch(h){}try{if(this._has_user_identifier()){var k=this._global("adroll_user_identifier"),k=k.replace(/^\s\s*/,"").replace(/\s\s*$/,"");f.push("user_identifier="+this.md5(k))}}catch(h){}try{var g=this.external_data_to_qs(b,!0);g&&f.push(g)}catch(h){}try{var e=
+window.location.href.split("#")[0];500>=e.length&&f.push("arrfrr="+window.encodeURIComponent(e))}catch(h){}f.push("adroll_version="+this.get_version());return this._srv(this.get_base_url("/segment",a,c,null,"",f))};
+__adroll__.prototype.loadGlobalFunctions=function(){var a=this._global("adroll");if(a&&"object"===typeof a){var c=this;a.setProperties=function(){return c.setProperties.apply(c,arguments)};a.identify=function(){return c.identify.apply(c,arguments)};a.track=function(){return c.track.apply(c,arguments)};for(var b,d,f=0;f<a.length;f++)b=a[f][0],d=a[f][1],"setProperties"===b?this.setProperties.apply(this,d):"identify"===b?this.identify.apply(this,d):"track"===b&&this.track.apply(this,d)}};
+__adroll__.prototype.get_base_url=function(a,c,b,d,f,m){var p=a.split("?");a=p[0]+"/"+c+"/"+b+(d?"/"+d:"")+(f?"/"+f:"");var n="?";p[1]&&(a+="?"+p[1],n="&");var p=n+"no-cookies=1&pv=",l="";this.cookieEnabled()?(l=window.escape(this.get_eids()),a+=n+"pv="+this.pv+"&cookie="+l):a+=p+this.pv;m&&(a+="&"+m.join("&"));a=this.add_tpc_to_url(a);if(a.length>this._url){this.del(this.__adc);if(a.length-l.length>this._url)return a;this.log("Url was too big, shrinking it");return this.get_url(c,b,d,f,m)}this.log("Generated url: "+
+a);return a};__adroll__.prototype.add_script_element=function(a,c){var b=window.document.createElement("script"),d=this._secure()?"https://":"http://";a.match(/^(\w+:)*\/\//)&&(d="");for(var f in c)c.hasOwnProperty(f)&&"src"!==f&&b.setAttribute(f,c[f]);b.type="text/javascript";b.src=d+a;this._head().appendChild(b);return b};__adroll__.prototype.get_url=function(a,c,b,d,f){var m=b?this._srv("/c"):this._srv("/r");return this.get_base_url(m,a,c,b,d,f)};
+__adroll__.prototype.get_eids=function(){try{for(var a=this.get(this.__adc),c=a?a.split("|"):"",a=[],b=c.length-1;0<=b;b--)if(c[b]&&""!==c[b]){var d=c[b].split(":");a.push([d[0],d[2]].join(":"))}return a.join("|")}catch(f){return this.del(this.__adc),""}};__adroll__.prototype.record_adroll_email=function(a){if(this._has_email()){var c=this._global("_adroll_email"),c=c.replace(/^\s+|\s+$/g,""),b,d=c.toLowerCase(),c=this.is_email_valid(c);this.is_already_hashed(d)?b=d:c&&(b=this.md5(d));b=this._srv("/id/"+this._global("adroll_adv_id")+"/?hashed_email="+b);c&&(d=d.split("@")[1],b+="&email_domain="+window.encodeURIComponent(d));a&&(b+="&idsource="+a);this.imgRequest(b)}};
+__adroll__.prototype._send_plain_text_identifiers=function(a,c,b){if((a||c)&&b){b=this._srv("/id/"+this._global("adroll_adv_id")+"/?idsource="+b);if(a){a=a.replace(/^\s+|\s+$/g,"").toLowerCase();var d=a.split("@")[1];b+="&email="+window.encodeURIComponent(a)+"&hashed_email="+this.md5(a)+"&email_domain="+window.encodeURIComponent(d)}c&&(b+="&user_identifier="+window.encodeURIComponent(c));this.imgRequest(b)}};__adroll__.prototype._has_email=function(){return this._has_global("_adroll_email")};
+__adroll__.prototype._has_user_identifier=function(){return this._has_global("adroll_user_identifier")&&"example_user_id"!==this._global("adroll_user_identifier")};__adroll__.prototype.is_already_hashed=function(a){return/^[a-f0-9]{32}$/.test(a)};__adroll__.prototype.is_email_valid=function(a){return/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/.test(a)};
+__adroll__.prototype.identify=function(a,c){(a.email||a.userId)&&this._send_plain_text_identifiers(a.email,a.userId,c||"adroll-identify");a.email&&this._set_global("_adroll_email",a.email);var b=this.copyObj(a,["email","userId"]);b&&(b=this._srv("/uat/"+this._global("adroll_adv_id")+"/"+this._global("adroll_pix_id")+"/?user_attributes="+window.encodeURIComponent(this.jsonStringify(b))),c&&(b+="&idsource="+c),this.imgRequest(b));this._queueAndCallback("identify",[a,c])};
+__adroll__.prototype.setProperties=function(a){if(this._has_global("adroll_page_properties")){var c=this._global("adroll_page_properties");this._unset_global("adroll_page_properties");this.extendObj(c,a);this._set_global("adroll_page_properties",c)}else this._set_global("adroll_page_properties",a)};__adroll__.prototype.appendPageProperties=function(a){this._has_global("adroll_page_properties")&&(a=this.extendObj(this._global("adroll_page_properties"),a));return a};
+__adroll__.prototype._callUserEventEndpoint=function(a,c){var b=this._srv("/uev/"+this._global("adroll_adv_id")+"/"+this._global("adroll_pix_id")+"/?event_name="+window.encodeURIComponent(a)+"&adroll_version="+this.get_version()),d=this.copyObj(c);if(d){b+="&event_attributes="+window.encodeURIComponent(this.jsonStringify(d));try{var f=this.get_conversion_value(d);f.conv_value&&(b+="&conv_value="+window.encodeURIComponent(f.conv_value));f.currency&&(b+="&adroll_currency="+window.encodeURIComponent(f.currency))}catch(m){}}this.imgRequest(b)};
+__adroll__.prototype.track=function(a,c){a&&(c=c?this.appendPageProperties(c):this.get_page_properties(),"pageView"===a?this.dyno("fbDynoCallback",c):(this.is_product_event(a)?this.get_pid(this._global("adroll_rollcrawl_opts")):this._callUserEventEndpoint(a,c),this._queueAndCallback("track",[a,c])))};
+__adroll__.prototype._registerCallback=function(a,c,b){this.callbacks=this.callbacks||{};this.callbackNames=this.callbackNames||[];this.callbacks[a]=this.callbacks[a]||[];if(!("function"!==typeof c||-1<this.callbackNames.indexOf(b))&&(this.callbackNames.push(b),this.callbacks[a].push(c),this.callbackQueues&&this.callbackQueues[a]&&this.callbackQueues[a].length))for(b=0;b<this.callbackQueues[a].length;b++)c.apply(null,this.callbackQueues[a][b])};
+__adroll__.prototype._queueAndCallback=function(a,c){this.callbackQueues=this.callbackQueues||{};this.callbackQueues[a]=this.callbackQueues[a]||[];this.callbackQueues[a].push(c);if(this.callbacks&&this.callbacks[a]&&this.callbacks[a].length)for(var b=0;b<this.callbacks[a].length;b++)this.callbacks[a][b].apply(null,c)};__adroll__.prototype.registerIdentifyCallback=function(a,c){this._registerCallback("identify",a,c)};
+__adroll__.prototype.registerTrackCallback=function(a,c){this._registerCallback("track",a,c)};__adroll__.prototype._is_defined=function(a){return"undefined"===a||"null"===a?!1:"undefined"!==typeof a};__adroll__.prototype.is_null_or_blank=function(a){return null===a||!this._is_defined(a)||""===a.trim()};__adroll__.prototype.normalize_var=function(a,c){if(!a)return"";a=a.toString().substr(0,this._kwl).replace(/,/gi,".");c&&(a=window.escape(a));return a};__adroll__.prototype.get_version=function(){return this._has_global("adroll_version")?this._global("adroll_version"):"2.0"};
+__adroll__.prototype.is_product_event=function(a){return-1!==this.product_events.indexOf(a)};__adroll__.prototype.get_keywords=function(){try{var a=window.document.referrer||"";if(!a)return"";var c=this.parseUri(a);return-1!==c.host.indexOf("www.google.")?c.queryKey.q.substring(0,this._kwl):-1!==c.host.indexOf("bing.com")?c.queryKey.q.substring(0,this._kwl):""}catch(b){return""}};
+__adroll__.prototype.parseUri=function(a){a=/^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*):?([^:@]*))?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/.exec(a);for(var c={queryKey:{}},b=14,d="source protocol authority userInfo user password host port relative path directory file query anchor".split(" ");b--;)c[d[b]]=a[b]||"";c[d[12]].replace(/(?:^|&)([^&=]*)=?([^&]*)/g,function(a,b,d){b&&(c.queryKey[b]=d)});return c};
+__adroll__.prototype._srv=function(a){a=this._is_defined(a)?a:"";a=this.add_tpc_to_url("https://d.adroll.com"+a);return this.add_fpc_to_url(a)};__adroll__.prototype._cdn=function(a){a=this._is_defined(a)?a:"";return"https://s.adroll.com"+a};__adroll__.prototype.log=function(a){this._logs.push(a)};__adroll__.prototype.read_log=function(a){return this._logs.join(a?"\n":"<br>\n")};__adroll__.prototype.normalize_url=function(a){return a.toLowerCase()};
+__adroll__.prototype.imgRequest=function(a){var c=new window.Image;c.src=this.add_tpc_to_url(a);c.setAttribute("width","1");c.setAttribute("height","1");c.setAttribute("border","0");this._head().appendChild(c)};__adroll__.prototype.copyObj=function(a,c){if(!a)return null;var b={},d=0,f;for(f in a)!a.hasOwnProperty(f)||c&&-1!==c.indexOf(f)||(d++,b[f]=a[f]);return d?b:null};__adroll__.prototype.extendObj=function(a,c){for(var b in c)c.hasOwnProperty(b)&&(a[b]=c[b]);return a};
+__adroll__.prototype.startsWith=function(a,c){return a.substring(0,c.length)===c};__adroll__.prototype.convert_to_map=function(a){if(null===a)return null;var c={},b;for(b in a)a.hasOwnProperty(b)&&"undefined"!==a[b]&&(c[b.toLowerCase()]=a[b]);return c};__adroll__.prototype.wrapException=function(a){return function(c){try{return a(c)}catch(b){}}};
+__adroll__.prototype.add_tpc_to_url=function(a){var c=this._global("adroll_tpc");if(!a||!c)return a;var b=this.parseUri(a);if(b.queryKey.adroll_tpc||"d.adroll.com"!==b.host&&"d.adroll.com"!==b.host+":"+b.port)return a;var d=a.indexOf("?"),f=b="";-1!==d?(b=a.slice(0,d+1),f="&"+a.slice(d+1)):(d=a.indexOf("#",-1===d?0:d),-1===d?b=a+"?":(b=a.slice(0,d)+"?",f=a.slice(d)));return b+"adroll_tpc="+encodeURIComponent(c)+f};
+__adroll__.prototype.add_fpc_to_url=function(a){var c=this.get_first_party_cookie();if(!a||!c)return a;var b=this.parseUri(a);if(b.queryKey.adroll_fpc||"d.adroll.com"!==b.host&&"d.adroll.com"!==b.host+":"+b.port)return a;b=-1===a.indexOf("?")?"?":"&";return a+b+"adroll_fpc="+encodeURIComponent(c)};
+__adroll__.prototype.getSafariVersion=function(){var a=/^Mozilla\/5\.0 \([^)]+\) AppleWebKit\/[^ ]+ \(KHTML, like Gecko\) Version\/([^ ]+)( Mobile\/[^ ]+)? Safari\/[^ ]+$/i.exec(navigator.userAgent);return a?a[1]:null};__adroll__.prototype.set_tpc=function(a,c){var b=this.tpc_callback();a&&c&&this._set_global("adroll_tpc",encodeURIComponent(a)+"="+encodeURIComponent(c));b&&b.call(this)};__adroll__.prototype.tpc_callback=function(a){var c=window.adroll_tpc_callback;window.adroll_tpc_callback=a;return c};
+__adroll__.prototype.call_next_tpc=function(a){(a=this.tpc_callback(a))&&a.call(this)};__adroll__.prototype.extract_query_param=function(a,c){for(var b=c.split("&"),d=0;d<b.length;d++){var f=b[d].split("=");if(decodeURIComponent(f[0])===a)return decodeURIComponent(f[1])}return null};__adroll__.prototype.get_adroll_sid=function(){var a=this.get_consent_params();return a&&(a=this.extract_query_param("_s",a))?a:this._global("adroll_sid")};
+__adroll__.prototype.call_consent_write=function(a){this.add_script_element(this._srv("/consent/write?"+a))};__adroll__.prototype.call_consent_check=function(){var a=["_s="+this.get_adroll_sid()];"#_ar_gdpr="===window.location.hash.substr(0,10)&&a.push("dbg="+unescape(window.location.hash.substr(10)));a="/consent/check/"+this._global("adroll_adv_id")+"?"+a.join("&");this.add_script_element(this._srv(a))};
+__adroll__.prototype.load_adroll_tpc=function(a){this.tpc_callback(a);if(this._consent_checked)return this.set_consent();this._consent_checked=!0;this.call_consent_check()};__adroll__.prototype.get_tpc_decode_timeout=function(){return 1E3};__adroll__.prototype._secure=function(){return!0};
+__adroll__.prototype.set_first_party_cookie=function(){var a=this.get_first_party_cookie(!1);a?-1===a.indexOf("-s2-")&&(-1===a.indexOf("-")?this.set("__adroll_fpc",a+"-s2-",43800):this.set("__adroll_fpc",a.replace("-","-s2-"),43800)):(a=this.md5((new Date).getTime()+Math.round(1E11*Math.random())+window.navigator.userAgent.toLowerCase()+window.document.referrer)+"-s2-"+Date.now(),this.set("__adroll_fpc",a,43800))};
+__adroll__.prototype.get_first_party_cookie=function(a){var c=this.get("__adroll_fpc");return c?!1!==a&&-1===c.indexOf("-s2-")?null:c.replace("-s2-","-").replace(/-$/,""):null};window.__adroll=window.__adroll||new __adroll__;
+
+
+    __adroll__.prototype.render_advertisable_cell = function () {
+
+        __adroll.segment_map = JSON.parse("{\"4RILY4FZM5ASDPQJLEAAFU\":{\"child\":\"4RILY4FZM5ASDPQJLEAAFU\",\"type\":\"p\"},\"TKN6Z3PPKVE63EBHGSNDOR\":{\"child\":\"TKN6Z3PPKVE63EBHGSNDOR\",\"type\":\"c\"},\"DLXLES5ZVZBINARVSV5YZA\":{\"child\":\"DLXLES5ZVZBINARVSV5YZA\",\"type\":\"u\"},\"BO6CIQ2F2JBE3NKXZNCCWU\":{\"child\":\"BO6CIQ2F2JBE3NKXZNCCWU\",\"type\":\"b\"},\"WHYZUGYFABCENHJBV777J6\":{\"child\":\"WHYZUGYFABCENHJBV777J6\",\"type\":\"b\"}}");
+        __adroll.product_events = ["productView", "addToCart", "cartView", "purchase", "productListView"];
+        var scheme = (("https:" == document.location.protocol) ? "https" : "http");
+        var adnxs_domain = 'secure.adnxs.com';
+        var aol_domain = 'secure.leadback.advertising.com';
+
+        if (scheme=='http') { adnxs_domain = 'ib.adnxs.com'; aol_domain = 'leadback.advertising.com';}
+        var el = document.createElement("div");
+        el.style["width"] = "1px";
+        el.style["height"] = "1px";
+        el.style["display"] = "inline";
+        el.style["position"] = "absolute";
+
+        if (__adroll.consent_allowed(__adroll.consent_networks.facebook)) {
+                !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+                n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+                t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+                document,'script','//connect.facebook.net/en_US/fbevents.js');
+        }
+
+        try {
+                try {
+                // Helper functions
+
+function ajaxGetJson(url, callback) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState === 4) {
+            if (this.status === 200) {
+                callback(JSON.parse(this.responseText));
+            } else {
+                console.warn('AdRoll Pixel: Request to ' + url + ' failed: "' + this.statusText + '"');
+            }
+        }
+    };
+    xhttp.open('GET', url, true);
+    xhttp.send();
+}
+
+function getProductByHandle(productHandle, callback) {
+    var url = '/products/' + productHandle + '.js';
+    ajaxGetJson(url, callback)
+}
+
+function getCart(callback) {
+    var url = '/cart.js';
+    ajaxGetJson(url, callback);
+}
+
+function getProductFromCart(cart, variantId) {
+    for (var i = 0; i < cart.items.length; i++) {
+        if (String(cart.items[i].variant_id) === String(variantId)) {
+            return cart.items[i];
+        }
+    }
+    return null;
+}
+
+function getAddToCartTrackQueue() {
+    if (typeof window.localStorage === 'undefined') {
+        return [];
+    }
+    var data = window.localStorage.getItem('adroll-shopify-add-to-cart-track-queue');
+    if (data === null) {
+        return [];
+    }
+    try {
+        return JSON.parse(data);
+    } catch(e) {
+        return [];
+    }
+}
+
+function setAddToCartTrackQueue(array) {
+    if (typeof window.localStorage !== 'undefined') {
+        window.localStorage.setItem('adroll-shopify-add-to-cart-track-queue', JSON.stringify(array));
+    }
+}
+
+function clearAddToCartTrackQueue() {
+    setAddToCartTrackQueue([]);
+}
+
+function formatCentPrice(price) {
+    price = parseInt(price, 10);
+    price = isNaN(price) ? '' : (price / 100).toFixed(2);
+    return price;
+}
+
+function getProductHandleFromCurrentUrl() {
+    var matches = window.location.pathname.match(/.*\/products\/(.+)/);
+    return matches ? matches[1] : null;
+}
+
+function getCurrentPage() {
+    var pathname = window.location.pathname;
+
+    if (pathname === '/') {
+        return 'home_page';
+    }
+    if (pathname.indexOf('/products/') !== -1) {
+        return 'product_page';
+    }
+    if (pathname.indexOf('/cart') !== -1){
+        return 'cart_page';
+    }
+    if (typeof(Shopify) !== 'undefined' && Shopify.Checkout !== undefined && Shopify.Checkout.page !== undefined && Shopify.Checkout.page === 'thank_you') {
+        return 'conversion_page'
+    }
+    if (typeof(BOLD) !== 'undefined' && BOLD.order !== undefined && BOLD.order.id !== undefined) {
+        return 'bold_cashier_conversion_page'
+    }
+}
+
+
+// Payload functions
+
+function getProductViewPayload(product) {
+    var payload = {products: []};
+    payload.products.push({
+        product_id: String(product.id),
+        category: product.type,
+        price: formatCentPrice(product.price)
+    });
+    return payload;
+}
+
+function getCartViewPayload(cart) {
+    var payload = {products: []};
+    for (var i = 0; i < cart.items.length; i++) {
+        var item = cart.items[i];
+        payload.products.push({
+            product_id: String(item.product_id),
+            category: item.type,
+            price: formatCentPrice(item.price),
+            quantity: String(item.quantity)
+        });
+    }
+    return payload;
+}
+
+function getPurchasePayload() {
+    var payload = {
+        order_id: String(Shopify.checkout.order_id),
+        conversion_value: Shopify.checkout.total_price, // Total_price attribute in checkout object is already formatted
+        products: []
+    };
+    for (var i = 0; i < Shopify.checkout.line_items.length; i++) {
+        var item = Shopify.checkout.line_items[i];
+        payload.products.push({
+            product_id: String(item.product_id),
+            price: item.price, // Price attribute in checkout line items is already formatted
+            quantity: String(item.quantity)
+        });
+    }
+    return payload;
+}
+
+function getBoldCashierPurchasePayload() {
+    var payload = {
+        order_id: String(BOLD.order.id),
+        conversion_value: formatCentPrice(BOLD.order.total),
+        products: []
+    };
+    for (var i = 0; i < BOLD.order.line_items.length; i++) {
+        var item = BOLD.order.line_items[i];
+        payload.products.push({
+            product_id: String(item.platform_product_id),
+            price: formatCentPrice(item.price),
+            quantity: String(item.quantity)
+        });
+    }
+    return payload;
+}
+
+// Tracking functions
+
+function trackAjaxAddToCart(addToCartFormData, ajaxResponseObject) {
+    // Receives as parameter the ajax payload with variant_id and optional quantity and
+    // the ajax response which is an object with the item details in the cart.
+    var qtyAdded = /quantity=([0-9]*)/.exec(addToCartFormData);
+    qtyAdded = qtyAdded ? qtyAdded[1] : 1;
+
+    var addToCartPayload = {
+        products: [{
+            product_id: String(ajaxResponseObject.product_id),
+            quantity: String(qtyAdded),
+            price: formatCentPrice(ajaxResponseObject.price),
+            category: ajaxResponseObject.product_type
+        }]
+    };
+
+    adroll.track('pageView', {segment_name: 'shopify_added_product_to_cart'});
+    adroll.track('addToCart', addToCartPayload);
+
+    var addToCartTrackQueue = getAddToCartTrackQueue();
+    if (addToCartTrackQueue.length > 0) {
+        var newList = [];
+        for (var i = 0;  i < addToCartTrackQueue.length; i++) {
+            if (addToCartTrackQueue[i].variant_id != ajaxResponseObject.variant_id || addToCartTrackQueue[i].quantity != qtyAdded) {
+                newList.push(addToCartTrackQueue[i]);
+            }
+        }
+        setAddToCartTrackQueue(newList);
+    }
+}
+
+function setupAjaxListeners() {
+    // Set up listeners to fire the pixel if/when the user peforms specific actions that trigger ajax requests.
+    if (typeof XMLHttpRequest.prototype.adrollOpen === 'undefined') {
+        // We mock the XMLHttpRequest open method in order to store the called url.
+        XMLHttpRequest.prototype.adrollOpen = XMLHttpRequest.prototype.open;
+        XMLHttpRequest.prototype.open = function (method, url, async, user, pass) {
+            this._url = url;
+            this.adrollOpen(method, url, async, user, pass);
+        };
+
+        // We mock the XMLHttpRequest send method in order to listen requests sent
+        // to the "add to the cart" urls.
+        XMLHttpRequest.prototype.adrollSend = XMLHttpRequest.prototype.send;
+        XMLHttpRequest.prototype.send = function (value) {
+            if (this._url && this._url.indexOf('cart/add') !== -1 && value) {
+                var self = this; // The xhttp request object
+
+                var trackOnSuccess = function () {
+                    if (self.readyState === 4 && self.status === 200) {
+                        trackAjaxAddToCart(value, JSON.parse(self.responseText));
+                    }
+                };
+
+                if (typeof self.onreadystatechange !== 'undefined' && self.onreadystatechange !== null) {
+                    // If the xhttp object already has an onreadystatechange callback, make sure we preserve it.
+                    self.adrollOnreadystatechange = self.onreadystatechange;
+                    self.onreadystatechange = function () {
+                        self.adrollOnreadystatechange();
+                        trackOnSuccess();
+                    }
+                } else {
+                    // If there is no onreadystatechange callback, we can safely set it.
+                    self.onreadystatechange = trackOnSuccess;
+                }
+            }
+            this.adrollSend(value);
+        }
+    }
+}
+
+function setupFormSubmitListeners() {
+    // For form submits, we don't have a way to get the item details and track the add to cart properly.
+    // We manage a list in localStorage for products we need to track as "added to cart".
+    // If we identify an add to cart submit, we just add the variand id and quantity into the list.
+    // On page loads, we check if this list is empty or not and track it correctly.
+    var addToCartForms = document.querySelectorAll('form[action*="cart/add"]');
+    for (var i = 0; i < addToCartForms.length; i++) {
+        addToCartForms[i].addEventListener('submit', function () {
+            var currentList = getAddToCartTrackQueue();
+            var variantId = this.querySelector('[name=id]');
+
+            if (!variantId) {
+                return;
+            }
+
+            variantId = variantId.value;
+            var quantity = this.querySelector('input[name=quantity]');
+            quantity = quantity ? quantity.value : 1;
+
+            currentList.push({'variant_id': variantId, 'quantity': quantity});
+            setAddToCartTrackQueue(currentList);
+        });
+    }
+}
+
+function handlePageLoadTracking() {
+    // Check the current page, build the appropriate payload and fire the pixel.
+    switch(getCurrentPage()){
+        case 'home_page':
+            adroll.track('pageView');
+            adroll.track('homeView');
+            break;
+        case 'product_page':
+            adroll.track('pageView', {segment_name: 'shopify_viewed_product'});
+            var productHandle = getProductHandleFromCurrentUrl();
+            getProductByHandle(productHandle, function(product) {
+                adroll.track('productView', getProductViewPayload(product));
+            });
+            break;
+        case 'cart_page':
+            adroll.track('pageView', {segment_name: 'shopify_viewed_cart'});
+            getCart(function(cart) {
+                adroll.track('cartView', getCartViewPayload(cart));
+            });
+            break;
+        case 'conversion_page':
+            adroll.setProperties({
+                currency: Shopify.checkout.currency,
+                ORDER_ID: Shopify.checkout.order_id,
+                USER_ID: Shopify.checkout.customer_id
+            });
+            var purchasePayload = getPurchasePayload();
+            adroll.track('purchase', purchasePayload);
+            var pageViewPayload = JSON.parse(JSON.stringify(purchasePayload));
+            pageViewPayload.segment_name = 'shopify_responsive_checkout';
+            adroll.track('pageView', pageViewPayload);
+
+            adroll.identify({
+                email: Shopify.checkout.email,
+                userId: Shopify.checkout.customer_id
+            });
+            break;
+        case 'bold_cashier_conversion_page':
+            var purchasePayload = getBoldCashierPurchasePayload();
+            adroll.track('purchase', purchasePayload);
+            var pageViewPayload = JSON.parse(JSON.stringify(purchasePayload));
+            pageViewPayload.segment_name = 'shopify_responsive_checkout';
+            adroll.track('pageView', pageViewPayload);
+
+            adroll.identify({
+                email: BOLD.order.customer.email
+            });
+        default:
+            adroll.track('pageView');
+    }
+}
+
+function handleAddToCartQueueTracking() {
+    // Check localStorage for list of variants that were previously added to the cart, then get the corresponding
+    // product data and fire the pixel.
+    var addToCartTrackQueue = getAddToCartTrackQueue();
+    if (addToCartTrackQueue.length > 0) {
+        getCart(function(cart) {
+            var addToCartPayload = {products: []};
+            for (var i = 0;  i < addToCartTrackQueue.length; i++) {
+                var product = getProductFromCart(cart, addToCartTrackQueue[i].variant_id);
+                if (!product) {
+                    continue;
+                }
+                addToCartPayload.products.push({
+                    'product_id': String(product.product_id),
+                    'quantity': addToCartTrackQueue[i].quantity,
+                    'price': formatCentPrice(product.price),
+                    'category': product.product_type
+                });
+            }
+            adroll.track('pageView', {segment_name: 'shopify_added_product_to_cart'});
+            adroll.track('addToCart', addToCartPayload);
+            clearAddToCartTrackQueue();
+        });
+    }
+}
+
+setupAjaxListeners();
+setupFormSubmitListeners();
+handlePageLoadTracking();
+handleAddToCartQueueTracking();
+
+                } catch(e) {}
+                try {
+                (function(){
+        window.adroll_sendrolling_hashed_only = true;
+        var scr = document.createElement("script");
+        scr.type = "text/javascript";
+        scr.src = "//s.adroll.com/j/sendrolling.js";
+        ((document.getElementsByTagName("head") ||
+        [null])[0] ||
+        document.getElementsByTagName("script")[0].parentNode).appendChild(scr);
+    })();
+                } catch(e) {}
+                try {
+                var func = function(eventName, eventAttrs) {
+    if (!__adroll.is_product_event(eventName)) {
+        return;
+    }
+    if (__adroll.consent_allowed(__adroll.consent_networks.facebook)) {
+        var opts = __adroll._global("adroll_rollcrawl_opts");
+            __adroll.extract_pid(opts, eventName, eventAttrs, "facebook", function(pid) {
+            if (pid) {
+                if (!pid.product_list || pid.product_list.length === 0) {
+                    return;
+                }
+                if (!pid.product_action) {
+                    pid.product_action = "ViewContent";
+                } else if (pid.product_action.toLowerCase() === "purchase") {
+                    pid.product_action = "CustomPurchase";
+                } else if (pid.product_action.toLowerCase() === "addtocart") {
+                    pid.product_action = "AddToCart";
+                }
+                var product_list = [];
+                // handle product json array
+                var products = pid.product_list;
+                for (var i = 0; i < products.length; i++) {
+                    var product_id = products[i]["product_id"];
+                    var product_group = products[i]["product_group"];
+                    if (product_id && product_id.length != 0 ) {
+                        var x = __adroll.normalize_var(product_id.replace("\"", "\\\"")).toLowerCase() + "_";
+                        if (product_group) {
+                            x += __adroll.normalize_var(product_group + '').toLowerCase();
+                        }
+                        product_list.push(x);
+                    }
+                }
+                var url = __adroll._srv("/fb/tr/?id=2226715694308406" +
+                                        "&ev=" + encodeURIComponent(pid.product_action) +
+                                        "&cd[content_type]=product" +
+                                        "&cd[content_ids]=" + encodeURIComponent(__adroll.jsonStringify(product_list)) +
+                                        "&cd[application_id]=321379434608647" +
+                                        "&cd[product_catalog_id]=2102432363181853");
+                var img = document.createElement("img");
+                img.src = url;
+                img.height = img.width = 1;
+                img.border = 0;
+                __adroll._head().appendChild(img);
+            }
+         });
+     }
+}
+__adroll.registerTrackCallback(func, 'fbProductEventCallback')
+
+                } catch(e) {}
+                try {
+                var func = function(eventName, eventAttrs, headers) {
+    if (__adroll.consent_allowed(__adroll.consent_networks.facebook)) {
+        var segment_eids = __adroll.segment_map[headers["x-segment-eid"]].child;
+        var segment_type = __adroll.segment_map[headers["x-segment-eid"]].type;
+        var external_data = __adroll.convert_to_map(eventAttrs);
+
+        var product_id_list = [];
+        var product_group_list = [];
+
+        // parsing product json from external data
+        if (external_data && external_data.hasOwnProperty("products")) {
+            var products = external_data["products"];
+            for (var i = 0; i < products.length; i++) {
+                var product_id = products[i]["product_id"];
+                var product_group = products[i]["product_group"];
+                if (product_id && product_id.length != 0 ) {
+                    product_id_list[i] = product_id;
+                    product_group_list[i] = product_group;
+                }
+            }
+        }
+        if (typeof __adroll.fb === 'undefined'){
+            fbq('init', '2226715694308406');
+
+            fbq('set', 'autoConfig', 'false', '2226715694308406');
+            __adroll.fb=true;
+
+            var __fbcd = {segment_eid: segment_eids};
+            for (var prop in external_data){
+                if (prop === "products") {
+                    __fbcd['ar_product_id'] = product_id_list;
+                    __fbcd['ar_product_group'] = product_group_list;
+                }
+                else {
+                    __fbcd['ar_' + prop] = external_data[prop];
+                }
+            }
+
+            fbq('track', "PageView", __fbcd);
+
+            if (segment_type === "c") {
+                var suppress_conversion = (typeof adroll_shopify_dupe_conversion == 'boolean' && adroll_shopify_dupe_conversion) ||
+                                          (typeof adroll_shopify_empty_referrer == 'boolean' && adroll_shopify_empty_referrer);
+
+                if(!suppress_conversion) {
+                    var conversion = __adroll.get_conversion_value(eventAttrs);
+                    var conversion_value = conversion['conv_value'];
+                    var currency = conversion['currency'];
+                    var fb_track_src = "https://www.facebook.com/tr/?id=2226715694308406" +
+                                      "&ev=Purchase" +
+                                      "&cd[value]=" + conversion_value +
+                                      "&cd[currency]=" + currency +
+                                      "&cd[segment_eid]=" + encodeURIComponent(segment_eids);
+
+                    if(typeof external_data == "object"){
+                        for (var prop in external_data){
+                            if (prop === "products") {
+                                fb_track_src += "&cd[ar_product_id]=" + product_id_list + "&cd[ar_product_group]=" + product_group_list;
+                            }
+                            else {
+                                fb_track_src += "&cd[ar_" + prop + "]=" + external_data[prop];
+                            }
+                        }
+                    }
+
+                    var img = document.createElement("img");
+                    img.src = fb_track_src;
+                    img.height = img.width = 1;
+                    img.border = 0;
+                    __adroll._head().appendChild(img);
+                }
+            }
+        } else {
+            var __fbcd = {event: "EventSegment", segment_eid: segment_eids};
+            for (var prop in external_data){
+                if (prop === "products") {
+                    __fbcd['ar_product_id'] = product_id_list;
+                    __fbcd['ar_product_group'] = product_group_list;
+                }
+                else {
+                    __fbcd['ar_' + prop] = external_data[prop];
+                }
+            }
+
+            fbq('track', "CustomEvent", __fbcd);
+            if (segment_type === "c") {
+                var suppress_conversion = (typeof adroll_shopify_dupe_conversion == 'boolean' && adroll_shopify_dupe_conversion) ||
+                                          (typeof adroll_shopify_empty_referrer == 'boolean' && adroll_shopify_empty_referrer);
+
+                if(!suppress_conversion) {
+                    var conversion = __adroll.get_conversion_value(eventAttrs);
+                    var conversion_value = conversion['conv_value'];
+                    var currency = conversion['currency'];
+                    var fb_track_src = "https://www.facebook.com/tr/?id=2226715694308406" +
+                                      "&ev=Purchase" +
+                                      "&cd[value]=" + conversion_value +
+                                      "&cd[currency]=" + currency +
+                                      "&cd[segment_eid]=" + encodeURIComponent(segment_eids);
+
+                    if(typeof external_data == "object"){
+                        for (var prop in external_data){
+                            if (prop === "products") {
+                                fb_track_src += "&cd[ar_product_id]=" + product_id_list + "&cd[ar_product_group]=" + product_group_list;
+                            } else {
+                                fb_track_src += "&cd[ar_" + prop + "]=" + external_data[prop];
+                            }
+                        }
+                    }
+
+                    var img = document.createElement("img");
+                    img.src = fb_track_src;
+                    img.height = img.width = 1;
+                    img.border = 0;
+                    __adroll._head().appendChild(img);
+                }
+            }
+        }
+    }
+}
+__adroll.registerDynoCallback(func, 'fbDynoCallback');
+
+                } catch(e) {}
+        } catch(e) {}
+
+       __adroll.loadGlobalFunctions();
+
+        {
+           var rollcrawl_opts = {
+                "regexp": null,
+                "blacklist_regexp": null,
+                "regexp_group": null,
+                "product_group_regexp": null,
+                "product_group_group": null
+            };
+            this._set_global("adroll_rollcrawl_opts", rollcrawl_opts);
+            __adroll.track('productView');
+            }
+        __adroll._head().appendChild(el);
+        if (typeof __adroll.set_pixel_cookie != 'undefined') {__adroll.set_pixel_cookie(adroll_adv_id, adroll_pix_id);}
+    };
+}
+catch(e) {}
+
+try {
+    __adroll.load_adroll_tpc(__adroll.render_advertisable_cell);
+}
+catch(e) {}

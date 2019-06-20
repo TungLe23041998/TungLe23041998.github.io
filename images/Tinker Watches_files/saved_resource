@@ -1,0 +1,10 @@
+if (typeof window.wsg_options === 'undefined' || window.wsg_options.length == 0) {
+window.wsg_has_premium = false;
+window.wsg_options = [{"questions":{"0":{"type":"text","name":"question_0","label":"Name"},"1":{"type":"email","name":"question_1","label":"E-mail"},"99":{"type":"textarea","name":"question_99","label":"Message"}},"location_rule":[],"location_rule_select":[],"referrer_rule":[],"referrer_rule_select":[],"page_rule":[],"page_rule_select":[],"widgetname":"Improved Contact Form","bgcolor":"#F5F5F5","buttoncolor":"#494949","buttontextcolor":"#FFFFFF","textcolor":"#000000","title":"","intro":"<p><\/p>","thankyou":"<p>Your message has been sent. Thank you for contacting us!<\/p>","buttonlabel":"Send","tabtext":"Contact Us","tabcolor":"#494949","tabtextcolor":"#FFFFFF","tabicon":true,"bgimg":"","bgtransparency":50,"trigger":"tab","tabposition":"hidden","showbranding":true,"showdesktop":true,"showmobile":true,"sendemail":true,"emailto":"hello@tinkerwatches.com","type":"contact","id":"2392eb9f86b887c5983bc9d110b8354a"}];
+window.wsg_location = 'An Thanh, Tinh Soc Trang, Vietnam';
+window.wsg_country = 'VN';
+window.wsg_icf = {"questions":{"0":{"type":"text","name":"question_0","label":"Name"},"1":{"type":"email","name":"question_1","label":"E-mail"},"99":{"type":"textarea","name":"question_99","label":"Message"}},"location_rule":[],"location_rule_select":[],"referrer_rule":[],"referrer_rule_select":[],"page_rule":[],"page_rule_select":[],"widgetname":"Improved Contact Form","bgcolor":"#F5F5F5","buttoncolor":"#494949","buttontextcolor":"#FFFFFF","textcolor":"#000000","title":"","intro":"<p><\/p>","thankyou":"<p>Your message has been sent. Thank you for contacting us!<\/p>","buttonlabel":"Send","tabtext":"Contact Us","tabcolor":"#494949","tabtextcolor":"#FFFFFF","tabicon":true,"bgimg":"","bgtransparency":50,"trigger":"tab","tabposition":"hidden","showbranding":true,"showdesktop":true,"showmobile":true,"sendemail":true,"emailto":"hello@tinkerwatches.com","type":"contact","id":"2392eb9f86b887c5983bc9d110b8354a"};
+window.wsg_brand_url = 'https://www.w3counter.com/';
+window.wsg_brand_name = 'W3Counter.com';
+
+}

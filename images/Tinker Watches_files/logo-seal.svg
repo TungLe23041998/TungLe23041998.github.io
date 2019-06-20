@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60px" height="48px" viewBox="0 0 60 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>Page 1</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Footer" transform="translate(-193.000000, -115.000000)" fill="#BCBCBC">
+            <g id="Footer-Copy">
+                <g id="Page-1" transform="translate(193.000000, 115.000000)">
+                    <path d="M14.86944,-0.00024 L-0.00016,23.99976 L14.86944,47.99976 L44.40064,47.99976 L59.27104,23.99976 L44.40064,-0.00024 L14.86944,-0.00024 Z M2.82304,23.99976 L16.20544,2.40056 L43.06464,2.40056 L56.44784,23.99976 L43.06464,45.60056 L16.20544,45.60056 L2.82304,23.99976 Z" id="Fill-1"></path>
+                    <polygon id="Fill-2" points="40.5 48 42.9 48 42.9 0 40.5 0"></polygon>
+                    <polygon id="Fill-3" points="17.046 1.41672 40.7292 34.00552 42.6708 32.59512 18.9876 0.00552"></polygon>
+                    <polygon id="Fill-4" points="16.25112 46.5816 18.30952 47.8144 33.90792 21.7776 31.84872 20.544"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
